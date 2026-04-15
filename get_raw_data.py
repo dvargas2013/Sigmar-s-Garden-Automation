@@ -62,16 +62,3 @@ def frame():
     brf0, brf1 = brf
     tlf0, tlf1 = tlf
     return np.array(tlf), data[tlf1:brf1 + 150 + 70, tlf0:brf0 + 150]
-
-
-def contrast(img):
-    # select only foreground
-    fg = img.reshape(-1, 3)[(mask := ~np.all(img == 0, axis=2)).reshape(-1)]
-    if 0 in fg.shape:
-        return img
-    mins = fg.min(axis=0)
-    ranges = fg.max(axis=0) - mins
-    scale = np.where(ranges > 0, 255.0 / ranges, 1.0)  # fixes div0
-    out = (img - mins[np.newaxis, np.newaxis, :]) * scale[np.newaxis, np.newaxis, :]
-    out[~mask] = 0
-    return np.clip(out, 0, 255).astype(np.uint8)
