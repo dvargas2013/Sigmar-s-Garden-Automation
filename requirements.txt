@@ -1,0 +1,6 @@
+PyAutoGUI~=0.9.54
+opencv-python~=4.13.0.92
+numpy~=2.4.4
+pillow~=12.2.0
+scipy~=1.17.1
+scikit-image~=0.26.0
